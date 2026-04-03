@@ -258,7 +258,7 @@ body {
 
 .recent-searches h3 {
   margin-bottom: 1rem;
-  color: var(--muted-text);
+  color: var(--text-muted);
 }
 
 .copy-btn {
@@ -392,7 +392,7 @@ body {
 }
 
 .nav-link {
-  color: var(--dark-text);
+  color: var(--text-primary);
   text-decoration: none;
   font-weight: 500;
   padding: 0.5rem 1rem;
@@ -417,7 +417,7 @@ body {
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
 }
@@ -467,6 +467,12 @@ body {
 .footer p {
   margin: 0;
   font-size: 0.9rem;
+}
+
+.footer-extra {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
 }
 
 .key-info {
@@ -528,7 +534,7 @@ body {
 }
 
 .pill {
-  background: var(--background-light);
+  background: var(--surface-secondary);
   border: 2px solid var(--accent-color);
   border-radius: 999px;
   padding: 0.5rem 1rem;

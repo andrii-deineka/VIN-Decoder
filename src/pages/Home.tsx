@@ -23,7 +23,7 @@ const Home = () => {
   const copyToClipboard = useCopyToClipboard();
   const queryClient = useQueryClient();
   
-  const { register, handleSubmit, formState: { errors }, watch, setValue } = useForm<VinFormData>({
+  const { register, handleSubmit, formState: { errors }, watch, setValue, setError } = useForm<VinFormData>({
     resolver: zodResolver(vinSchema),
     mode: 'onBlur',
     defaultValues: { vin: '' }
@@ -38,24 +38,32 @@ const Home = () => {
     staleTime: 1000 * 60 * 10, // 10 minutes
   });
 
-  const onSubmit = (formData: VinFormData) => {
-    refetch().then(() => {
+  const onSubmit = async (formData: VinFormData) => {
+    const result = await refetch();
+
+    if (result.isSuccess && result.data && !result.error) {
       setRecentVins(prev => {
         const newList = [formData.vin, ...prev.filter(v => v !== formData.vin)].slice(0, 3);
         return newList;
       });
-    });
+    }
   };
 
   const handleRecentClick = useCallback(async (selectedVin: string) => {
     setValue('vin', selectedVin);
-    // Use queryClient to manually fetch the query
-    await queryClient.fetchQuery({
-      queryKey: ['vin', selectedVin],
-      queryFn: () => decodeVin(selectedVin),
-      staleTime: 1000 * 60 * 10,
-    });
-  }, [setValue, queryClient]);
+
+    try {
+      await queryClient.fetchQuery({
+        queryKey: ['vin', selectedVin],
+        queryFn: () => decodeVin(selectedVin),
+        staleTime: 1000 * 60 * 10,
+      });
+    } catch (fetchError) {
+      const message = fetchError instanceof Error ? fetchError.message : 'Failed to fetch VIN details';
+      setError('vin', { type: 'manual', message });
+      console.error('handleRecentClick fetchQuery failed', fetchError);
+    }
+  }, [setValue, setError, queryClient]);
 
   const filteredResults = data?.Results.filter(r => r.Value) || [];
   const make = filteredResults.find(r => r.Variable === 'Make')?.Value;

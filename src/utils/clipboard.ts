@@ -1,14 +1,24 @@
 export const copyToClipboard = async (text: string) => {
   try {
     await navigator.clipboard.writeText(text);
-  } catch (err) {
+    return;
+  } catch (clipboardError) {
     // fallback for older browsers
     const textArea = document.createElement('textarea');
     textArea.value = text;
     document.body.appendChild(textArea);
     textArea.focus();
     textArea.select();
-    document.execCommand('copy');
-    document.body.removeChild(textArea);
+
+    try {
+      const success = document.execCommand('copy');
+      if (!success) {
+        throw new Error('Fallback clipboard copy failed');
+      }
+    } catch (fallbackError) {
+      throw fallbackError;
+    } finally {
+      document.body.removeChild(textArea);
+    }
   }
 };

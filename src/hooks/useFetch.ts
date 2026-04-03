@@ -1,20 +1,29 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 export const useFetch = <T>() => {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const latestRequestIdRef = useRef(0);
 
   const fetchData = async (fetcher: () => Promise<T>) => {
+    const requestId = ++latestRequestIdRef.current;
     setLoading(true);
     setError(null);
+
     try {
       const result = await fetcher();
-      setData(result);
+      if (requestId === latestRequestIdRef.current) {
+        setData(result);
+      }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Unknown error');
+      if (requestId === latestRequestIdRef.current) {
+        setError(err instanceof Error ? err.message : 'Unknown error');
+      }
     } finally {
-      setLoading(false);
+      if (requestId === latestRequestIdRef.current) {
+        setLoading(false);
+      }
     }
   };
 

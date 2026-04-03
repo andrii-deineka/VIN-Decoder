@@ -8,9 +8,8 @@ const Footer: React.FC<FooterProps> = ({ extra }) => {
   return (
     <footer className="footer">
       <div className="footer-content">
-        <p>
-          Powered by NHTSA Vehicle API{extra}
-        </p>
+        <p>Powered by NHTSA Vehicle API</p>
+        {extra && <div className="footer-extra">{extra}</div>}
       </div>
     </footer>
   );
