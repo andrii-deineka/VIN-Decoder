@@ -230,7 +230,6 @@ const Home = () => {
                 onClick={() => handleRecentClick(v)}
                 whileHover={{ y: -2 }}
                 whileTap={{ y: 0 }}
-                style={{ border: 'none', background: 'inherit', padding: 'inherit', cursor: 'pointer', fontFamily: 'inherit' }}
               >
                 {v}
               </motion.button>
