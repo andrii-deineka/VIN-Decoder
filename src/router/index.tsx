@@ -3,17 +3,22 @@ import Home from '../pages/Home';
 import Variables from '../pages/Variables';
 import VariableDetail from '../pages/VariableDetail';
 
-export const router = createBrowserRouter([
+export const router = createBrowserRouter(
+  [
+    {
+      path: '/',
+      element: <Home />,
+    },
+    {
+      path: '/variables',
+      element: <Variables />,
+    },
+    {
+      path: '/variables/:id',
+      element: <VariableDetail />,
+    },
+  ],
   {
-    path: '/',
-    element: <Home />,
-  },
-  {
-    path: '/variables',
-    element: <Variables />,
-  },
-  {
-    path: '/variables/:id',
-    element: <VariableDetail />,
-  },
-]);
+    basename: '/VIN-Decoder/',
+  }
+);
