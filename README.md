@@ -2,6 +2,8 @@
 
 This is a test assignment: a web application for decoding vehicle identification numbers (VIN). The app allows users to enter a VIN and get detailed information about the vehicle, including variables and characteristics.
 
+**Live Demo**: [https://andrii-deineka.github.io/VIN-Decoder/](https://andrii-deineka.github.io/VIN-Decoder/)
+
 ## Features
 
 - **VIN Input**: Field for entering a 17-character VIN number.
