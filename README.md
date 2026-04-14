@@ -1,73 +1,75 @@
-# React + TypeScript + Vite
+# VIN Decoder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a test assignment: a web application for decoding vehicle identification numbers (VIN). The app allows users to enter a VIN and get detailed information about the vehicle, including variables and characteristics.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **VIN Input**: Field for entering a 17-character VIN number.
+- **Decoding**: Automatic VIN decoding using an API.
+- **Results Display**: Display of vehicle variables and details in a user-friendly interface.
+- **Copy to Clipboard**: Ability to copy results.
+- **Responsive Design**: Works on various devices.
 
-## React Compiler
+## Technologies
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React**: Library for building user interfaces.
+- **TypeScript**: Typed JavaScript for improved code reliability.
+- **Vite**: Fast build tool and development server.
+- **ESLint**: Linter for maintaining code quality.
+- **React Router**: For navigation between pages.
+- **Custom Hooks**: For state management and API calls.
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd vin-decoder
+   ```
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Running
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+To run in development mode:
+```bash
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The app will be available at `http://localhost:5173`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+For production build:
+```bash
+npm run build
 ```
+
+## Project Structure
+
+```
+src/
+├── components/          # Reusable components (Button, Card, etc.)
+├── hooks/               # Custom hooks (useFetch, useDebounce, etc.)
+├── pages/               # App pages (Home, Variables, etc.)
+├── router/              # Routing configuration
+├── schemas/             # Validation schemas (VIN)
+├── services/            # API services
+├── styles/              # Global styles
+└── utils/               # Utilities (clipboard, etc.)
+```
+
+## API
+
+The app uses an external API for VIN decoding. Ensure the API is accessible and configured correctly in `services/api.ts`.
+
+## Development
+
+- Use `npm run lint` to check code with ESLint.
+- Use TypeScript for typing.
+- Follow component and hook structure for clean code.
+
+## License
+
+This project is a test assignment and not intended for commercial use.
